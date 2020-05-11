@@ -4,6 +4,14 @@
 <!--
   #mydiv1 {position: absolute;}
   #mydiv2 {position: absolute;}
+  #mydiv3 {position: absolute;}
+  #mydiv4 {position: absolute;}
+  #mydiv5 {position: absolute;}
+  #mydiv6 {position: absolute;}
+  #mydiv7 {position: absolute;}
+  #mydiv8 {position: absolute;}
+  #mydiv9 {position: absolute;}
+
 
 -->
 </style>
@@ -15,46 +23,41 @@
   <div id="mydiv1">
    <img src="1.png" width="350" alt="Teil1"> 
   </div>
-<script>
-dragElement(document.getElementById(("mydiv1")));
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-	} else {
-    elmnt.onmousedown = dragMouseDown;
-  }
-
-	function dragMouseDown(e) {
-  e = e || window.event;
-  pos3 = parseInt(e.clientX);
-  pos4 = parseInt(e.clientY);
-	document.onmouseup = closeDragElement;
-  document.onmousemove = elementDrag;
-	return false;
-	}
-
-	function elementDrag(e) {
-	e = e || window.event;
-  pos1 = pos3 - parseInt(e.clientX);
-  pos2 = pos4-parseInt(e.clientY);
-	pos3 = parseInt(e.clientX);
-	pos4 = parseInt(e.clientY);
-  elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-  elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-	}
-
-	function closeDragElement() {
-    document.onmouseup = null;
-    document.onmousemove = null;
-	}
-}
-</script>
-  <div id="mydiv2">
+  <div id="mydiv1">
    <img src="2.png" width="350" alt="Teil2"> 
   </div>
+  <div id="mydiv1">
+   <img src="3.png" width="350" alt="Teil3"> 
+  </div>
+  <div id="mydiv1">
+   <img src="4.png" width="350" alt="Teil4"> 
+  </div>
+  <div id="mydiv1">
+   <img src="5.png" width="350" alt="Teil5"> 
+  </div>
+  <div id="mydiv1">
+   <img src="6.png" width="350" alt="Teil6"> 
+  </div>
+  <div id="mydiv1">
+   <img src="7.png" width="350" alt="Teil7"> 
+  </div>
+  <div id="mydiv1">
+   <img src="8.png" width="350" alt="Teil8"> 
+  </div>
+  <div id="mydiv1">
+   <img src="9.png" width="350" alt="Teil9"> 
+  </div>
 <script>
+dragElement(document.getElementById(("mydiv1")));
 dragElement(document.getElementById(("mydiv2")));
+dragElement(document.getElementById(("mydiv3")));
+dragElement(document.getElementById(("mydiv4")));
+dragElement(document.getElementById(("mydiv5")));
+dragElement(document.getElementById(("mydiv6")));
+dragElement(document.getElementById(("mydiv7")));
+dragElement(document.getElementById(("mydiv8")));
+dragElement(document.getElementById(("mydiv9")));
+
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   if (document.getElementById(elmnt.id + "header")) {
