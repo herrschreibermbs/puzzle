@@ -47,10 +47,7 @@
    <img src="5.png" width="350" alt="Teil9"> 
   </div>
 <script>
-if (touchHandled || !self._mouseCapture(event.originalEvent.changedTouches[0]) || event.originalEvent.target.localName === 'textarea'
-        || event.originalEvent.target.localName === 'input' || event.originalEvent.target.localName === 'button' || event.originalEvent.target.localName === 'li'
-        || event.originalEvent.target.localName === 'a'
-        || event.originalEvent.target.localName === 'select' || event.originalEvent.target.localName === 'img') {
+if (touchHandled || !self._mouseCapture(event.originalEvent.changedTouches[0]) || event.originalEvent.target.localName === 'img') {
 dragElement(document.getElementById(("mydiv1")));
 dragElement(document.getElementById(("mydiv2")));
 dragElement(document.getElementById(("mydiv3")));
