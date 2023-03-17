@@ -1,94 +1,99 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<style type="text/css">
-<!--
-  #mydiv1 {position: absolute;}
-  #mydiv2 {position: absolute;}
-  #mydiv3 {position: absolute;}
-  #mydiv4 {position: absolute;}
-  #mydiv5 {position: absolute;}
-  #mydiv6 {position: absolute;}
-  #mydiv7 {position: absolute;}
-  #mydiv8 {position: absolute;}
-  #mydiv9 {position: absolute;}
--->
-</style>
-  <head>
-<title>Puzzle</title>
+<head>
+	<title>Buchstabengitter</title>
+	<style>
+		body {
+			background-image: url("Buchstabengitter quer.png");
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+		.img-container {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.img-container img {
+			width: 33.33%;
+			height: auto;
+			object-fit: contain;
+			cursor: pointer;
+		}
+	</style>
 </head>
 <body>
- <img src="Buchstabengitter quer.png" width="900" alt="Hintergrund">
-<!-- Draggable element -->
-  <div id="mydiv1">
-   <img src="9.png" width="350" alt="Teil1"> 
-  </div>
-  <div id="mydiv2">
-   <img src="2.png" width="350" alt="Teil2"> 
-  </div>
-  <div id="mydiv3">
-   <img src="3.png" width="350" alt="Teil3"> 
-  </div>
-  <div id="mydiv4">
-   <img src="8.png" width="350" alt="Teil4"> 
-  </div>
-  <div id="mydiv5">
-   <img src="1.png" width="350" alt="Teil5"> 
-  </div>
-  <div id="mydiv6">
-   <img src="6.png" width="350" alt="Teil6"> 
-  </div>
-  <div id="mydiv7">
-   <img src="4.png" width="350" alt="Teil7"> 
-  </div>
-  <div id="mydiv8">
-   <img src="7.png" width="350" alt="Teil8"> 
-  </div>
-  <div id="mydiv9">
-   <img src="5.png" width="350" alt="Teil9"> 
-  </div>
-<script>
-dragElement(document.getElementById(("mydiv1")));
-dragElement(document.getElementById(("mydiv2")));
-dragElement(document.getElementById(("mydiv3")));
-dragElement(document.getElementById(("mydiv4")));
-dragElement(document.getElementById(("mydiv5")));
-dragElement(document.getElementById(("mydiv6")));
-dragElement(document.getElementById(("mydiv7")));
-dragElement(document.getElementById(("mydiv8")));
-dragElement(document.getElementById(("mydiv9")));
+	<div class="img-container">
+		<img src="1.png">
+		<img src="2.png">
+		<img src="3.png">
+		<img src="4.png">
+		<img src="5.png">
+		<img src="6.png">
+		<img src="7.png">
+		<img src="8.png">
+		<img src="9.png">
+	</div>
 
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-	} else {
-    elmnt.onmousedown = dragMouseDown;
-  }
+	<script>
+		let activeItem = null;
+		let initialX;
+		let initialY;
+		let currentX;
+		let currentY;
+		let xOffset = 0;
+		let yOffset = 0;
 
-	function dragMouseDown(e) {
-  e = e || window.event;
-  pos3 = parseInt(e.clientX);
-  pos4 = parseInt(e.clientY);
-	document.onmouseup = closeDragElement;
-  document.onmousemove = elementDrag;
-	return false;
-	}
+		// event listeners for mouse interactions
+		document.querySelectorAll('.img-container img').forEach(img => {
+			img.addEventListener('mousedown', dragStart);
+			img.addEventListener('mouseup', dragEnd);
+			img.addEventListener('mousemove', drag);
+		});
 
-	function elementDrag(e) {
-	e = e || window.event;
-  pos1 = pos3 - parseInt(e.clientX);
-  pos2 = pos4-parseInt(e.clientY);
-	pos3 = parseInt(e.clientX);
-	pos4 = parseInt(e.clientY);
-  elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-  elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-	}
+		// event listeners for touch interactions
+		document.querySelectorAll('.img-container img').forEach(img => {
+			img.addEventListener('touchstart', dragStart, { passive: true });
+			img.addEventListener('touchend', dragEnd, { passive: true });
+			img.addEventListener('touchmove', drag, { passive: true });
+		});
 
-	function closeDragElement() {
-    document.onmouseup = null;
-    document.onmousemove = null;
-	}
-}
-</script>
-  </body>
+		function dragStart(e) {
+			activeItem = e.target;
+			initialX = e.clientX || e.touches[0].clientX;
+			initialY = e.clientY || e.touches[0].clientY;
+
+			if (activeItem !== null) {
+				xOffset = parseFloat(activeItem.style.left) || 0;
+				yOffset = parseFloat(activeItem.style.top) || 0;
+			}
+		}
+
+		function dragEnd(e) {
+			initialX = currentX;
+			initialY = currentY;
+
+			activeItem = null;
+		}
+
+		function drag(e) {
+			if (activeItem !== null) {
+				e.preventDefault();
+
+				currentX = e.clientX || e.touches[0].clientX;
+				currentY = e.clientY || e.touches[0].clientY;
+
+				let dx = currentX - initialX;
+				let dy = currentY - initialY;
+
+				activeItem.style.left = xOffset + dx + 'px';
+				activeItem.style.top = yOffset + dy + 'px';
+			}
+		}
+	</script>
+</body>
 </html>
